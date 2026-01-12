@@ -2,253 +2,248 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DANA Giveaway Clone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>DANA Giveaway</title>
     <style>
+        /* Reset total agar tidak ada celah di pinggir layar */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
-        body {
-            background-color: #00A9E0;
+        body, html {
+            height: 100%;
+            width: 100%;
+            background-color: #00A9E0; /* Warna biru DANA */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow: hidden; /* Mencegah scroll pada body utama */
+        }
+
+        /* Container utama memenuhi seluruh layar */
+        .app-container {
+            display: flex;
+            flex-direction: column;
             height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            width: 100%;
         }
 
-        /* Container utama agar konten bisa discroll tapi navigasi tetap */
-        .main-wrapper {
-            flex: 1;
-            overflow-y: auto;
+        /* Bagian Atas: Biru Full */
+        .header-visual {
+            flex: 1.2; /* Memberikan ruang lebih besar untuk area atas */
             display: flex;
             flex-direction: column;
-            padding-bottom: 80px; /* Ruang untuk navbar */
-        }
-
-        /* Header & Banner Area */
-        .header-section {
-            padding: 20px;
-            text-align: center;
+            justify-content: center;
+            align-items: center;
             color: white;
-            flex-shrink: 0;
+            padding-top: env(safe-area-inset-top); /* Menangani notch pada HP modern */
         }
 
-        .gift-box {
-            width: 150px;
+        .gift-img {
+            width: 160px;
             margin-bottom: 10px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
         }
 
-        /* Card Putih Utama */
-        .content-card {
-            background: white;
-            margin: 0 15px;
+        .header-visual h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header-visual .sub-title {
+            background: #FFD700;
+            color: #0077C8;
+            font-weight: bold;
+            padding: 4px 20px;
             border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+            margin-top: 5px;
         }
 
-        .card-header {
+        /* Card Putih (Bagian Bawah) */
+        .white-card {
+            background: white;
+            border-radius: 30px 30px 0 0;
+            padding: 25px 20px 100px 20px; /* Padding bawah extra untuk ruang navbar */
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .card-label {
             text-align: center;
             color: #0077C8;
             font-weight: bold;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-
-        /* List Pilihan */
-        .selection-group {
+            font-size: 0.85rem;
             margin-bottom: 20px;
+            text-transform: uppercase;
         }
 
-        .option-box {
-            display: flex;
-            align-items: center;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 10px;
+        /* Pilihan Nominal */
+        .prize-option {
+            display: block;
+            margin-bottom: 12px;
             cursor: pointer;
         }
 
-        .radio-dot {
-            width: 24px;
-            height: 24px;
+        .prize-content {
+            display: flex;
+            align-items: center;
+            border: 1.5px solid #f0f0f0;
+            border-radius: 15px;
+            padding: 16px;
+            transition: 0.3s;
+        }
+
+        .radio-circle {
+            width: 22px;
+            height: 22px;
             border: 2px solid #ddd;
             border-radius: 50%;
             margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
         }
 
         input[type="radio"] { display: none; }
 
-        input[type="radio"]:checked + .option-box {
+        input[type="radio"]:checked + .prize-content {
             border-color: #00A9E0;
-            background-color: #f0faff;
+            background-color: #f0fbff;
         }
 
-        input[type="radio"]:checked + .option-box .radio-dot {
+        input[type="radio"]:checked + .prize-content .radio-circle {
             border-color: #00A9E0;
         }
 
-        input[type="radio"]:checked + .option-box .radio-dot::after {
+        input[type="radio"]:checked + .prize-content .radio-circle::after {
             content: "";
             width: 12px;
             height: 12px;
             background: #00A9E0;
             border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
-        .amount {
-            font-weight: bold;
-            color: #333;
+        .prize-text {
+            font-weight: 800;
             font-size: 1.1rem;
+            color: #333;
         }
 
         /* Tombol Konfirmasi */
-        .btn-confirm {
+        .btn-submit {
             width: 100%;
-            padding: 15px;
-            background: #00A9E0;
+            padding: 18px;
+            background-color: #00A9E0;
             color: white;
             border: none;
-            border-radius: 30px;
-            font-size: 1rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
             font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        /* Info Bawah Card */
-        .regulator-info {
-            text-align: center;
-            font-size: 0.65rem;
-            color: #777;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(0,169,224,0.3);
         }
 
         /* Navigation Bar Bawah */
-        .bottom-nav {
+        .navbar-bottom {
             position: fixed;
             bottom: 0;
             width: 100%;
-            height: 70px;
+            height: 75px;
             background: white;
+            border-top: 1px solid #eee;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            border-top: 1px solid #eee;
-            z-index: 100;
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
-        .nav-item {
+        .nav-link {
             text-align: center;
-            color: #888;
+            color: #999;
             font-size: 0.65rem;
-            flex: 1;
+            text-decoration: none;
         }
 
-        /* Tombol PAY Tengah */
-        .pay-button {
+        .nav-link img { width: 24px; margin-bottom: 4px; }
+
+        .pay-qr-btn {
             background: #00A9E0;
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
+            border: 4px solid white;
+            margin-top: -35px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: white;
-            margin-top: -30px;
-            border: 4px solid white;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-
-        .pay-icon { font-size: 1.2rem; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
-        <div class="header-section">
-            <img src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png" alt="Gift" class="gift-box">
-            <h2>GIVEAWAY</h2>
-            <p>UANG TUNAI</p>
-        </div>
-
-        <div class="content-card">
-            <div class="card-header">DANA GIVEAWAY</div>
-            
-            <form id="prizeForm">
-                <label>
-                    <input type="radio" name="prize" value="10.000.000">
-                    <div class="option-box">
-                        <div class="radio-dot"></div>
-                        <span class="amount">💸 Rp10.000.000</span>
-                    </div>
-                </label>
-
-                <label>
-                    <input type="radio" name="prize" value="20.000.000">
-                    <div class="option-box">
-                        <div class="radio-dot"></div>
-                        <span class="amount">💸 Rp20.000.000</span>
-                    </div>
-                </label>
-
-                <label>
-                    <input type="radio" name="prize" value="30.000.000">
-                    <div class="option-box">
-                        <div class="radio-dot"></div>
-                        <span class="amount">💸 Rp30.000.000</span>
-                    </div>
-                </label>
-
-                <button type="button" class="btn-confirm" onclick="proses()">Konfirmasi</button>
-            </form>
-
-            <div class="regulator-info">
-                DANA Indonesia terdaftar dan diawasi oleh<br>
-                <strong>BANK INDONESIA | KOMINFO</strong>
-            </div>
-        </div>
+<div class="app-container">
+    <div class="header-visual">
+        <img src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png" class="gift-img" alt="Kado">
+        <h1>GIVEAWAY</h1>
+        <div class="sub-title">UANG TUNAI</div>
     </div>
 
-    <nav class="bottom-nav">
-        <div class="nav-item">
-            <div style="font-size: 1.2rem;">🏠</div>
-            <span>Beranda</span>
-        </div>
-        <div class="nav-item">
-            <div style="font-size: 1.2rem;">📄</div>
-            <span>Aktivitas</span>
-        </div>
-        <div class="pay-button">
-            <div class="pay-icon">QR</div>
-            <span style="font-size: 0.6rem;">PAY</span>
-        </div>
-        <div class="nav-item">
-            <div style="font-size: 1.2rem;">💼</div>
-            <span>Dompet</span>
-        </div>
-        <div class="nav-item">
-            <div style="font-size: 1.2rem;">👤</div>
-            <span>Saya</span>
-        </div>
-    </nav>
+    <div class="white-card">
+        <div class="card-label">DANA GIVEAWAY</div>
+        
+        <form id="giveawayForm">
+            <label class="prize-option">
+                <input type="radio" name="gift" value="10jt">
+                <div class="prize-content">
+                    <div class="radio-circle"></div>
+                    <span class="prize-text">💸 Rp10.000.000</span>
+                </div>
+            </label>
 
-    <script>
-        function proses() {
-            const check = document.querySelector('input[name="prize"]:checked');
-            if(check) {
-                alert("Nominal dipilih: " + check.value + "\nLanjutkan ke proses verifikasi?");
-            } else {
-                alert("Mohon pilih nominal terlebih dahulu.");
-            }
-        }
-    </script>
+            <label class="prize-option">
+                <input type="radio" name="gift" value="20jt">
+                <div class="prize-content">
+                    <div class="radio-circle"></div>
+                    <span class="prize-text">💸 Rp20.000.000</span>
+                </div>
+            </label>
+
+            <label class="prize-option">
+                <input type="radio" name="gift" value="30jt">
+                <div class="prize-content">
+                    <div class="radio-circle"></div>
+                    <span class="prize-text">💸 Rp30.000.000</span>
+                </div>
+            </label>
+
+            <button type="button" class="btn-submit" onclick="alert('Pilihan dikonfirmasi!')">Konfirmasi</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px; font-size: 0.65rem; color: #999;">
+            DANA Indonesia terdaftar dan diawasi oleh<br>
+            <strong>BANK INDONESIA | KOMINFO</strong>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar-bottom">
+    <div class="nav-link">🏠<br>Beranda</div>
+    <div class="nav-link">📄<br>Aktivitas</div>
+    <div class="pay-qr-btn">
+        <span style="font-weight: bold; font-size: 0.8rem;">QR</span>
+        <span style="font-size: 0.5rem;">PAY</span>
+    </div>
+    <div class="nav-link">💼<br>Dompet</div>
+    <div class="nav-link">👤<br>Saya</div>
+</nav>
+
 </body>
-</html>
+    </html>
