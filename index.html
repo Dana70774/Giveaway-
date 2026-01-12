@@ -2,116 +2,170 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DANA Giveaway UI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DANA Giveaway Full</title>
     <style>
-        /* CSS untuk mengatur tampilan */
-        body {
+        /* Menghilangkan margin bawaan browser */
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(180deg, #00A9E0 0%, #0077C8 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #00A9E0; /* Warna biru dasar DANA */
             display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden; /* Mencegah scroll jika tidak diperlukan */
+        }
+
+        /* Bagian Atas: Gambar/Banner */
+        .header-banner {
+            flex: 1; /* Mengambil sisa ruang di atas */
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 400px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 20px;
             text-align: center;
+            padding: 20px;
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        .header-text {
+        .header-banner h1 {
+            font-size: 1.8rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 5px;
+        }
+
+        /* Bagian Bawah: Kotak Putih Pilihan */
+        .content-card {
+            background: white;
+            border-radius: 30px 30px 0 0; /* Melengkung hanya di atas */
+            padding: 30px 20px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+        }
+
+        .title-giveaway {
+            text-align: center;
+            color: #0077C8;
             font-weight: bold;
             margin-bottom: 20px;
-            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .card-selection {
-            background: white;
-            border-radius: 15px;
-            padding: 20px 10px;
-            color: #333;
-        }
-
-        /* Mengatur tampilan baris pilihan */
-        .option {
+        /* Desain Baris Pilihan */
+        .option-item {
             display: flex;
             align-items: center;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            padding: 18px;
+            margin-bottom: 15px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.2s ease;
         }
 
-        .option:hover {
+        .option-item:active {
+            background-color: #f9f9f9;
             border-color: #00A9E0;
         }
 
-        .option input {
+        /* Lingkaran Radio Button Custom */
+        .radio-circle {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
             margin-right: 15px;
-            transform: scale(1.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .option label {
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
+        input[type="radio"] {
+            display: none; /* Sembunyikan radio asli */
+        }
+
+        /* Style saat radio dipilih */
+        input[type="radio"]:checked + .option-item {
+            border-color: #00A9E0;
+            background-color: #e6f7ff;
+        }
+
+        .amount-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #333;
         }
 
         /* Tombol Konfirmasi */
         .btn-confirm {
             width: 100%;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 30px;
-            border: none;
-            background-color: #00A9E0;
+            padding: 16px;
+            background: #00A9E0;
             color: white;
-            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
             font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            margin-top: 10px;
             cursor: pointer;
         }
 
-        .btn-confirm:active {
-            transform: scale(0.98);
+        .footer-info {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #999;
+            margin-top: 15px;
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header-text">DANA GIVEAWAY</div>
-
-        <div class="card-selection">
-            <div class="option">
-                <input type="radio" name="giveaway" id="opt1">
-                <label for="opt1">💸 Rp10.000.000</label>
-            </div>
-
-            <div class="option">
-                <input type="radio" name="giveaway" id="opt2">
-                <label for="opt2">💸 Rp20.000.000</label>
-            </div>
-
-            <div class="option">
-                <input type="radio" name="giveaway" id="opt3">
-                <label for="opt3">💸 Rp30.000.000</label>
-            </div>
+    <div class="header-banner">
+        <h1>GIVEAWAY</h1>
+        <p>UANG TUNAI</p>
         </div>
 
-        <button class="btn-confirm">Konfirmasi</button>
+    <div class="content-card">
+        <div class="title-giveaway">DANA GIVEAWAY</div>
+
+        <form>
+            <label>
+                <input type="radio" name="prize" value="10jt">
+                <div class="option-item">
+                    <div class="radio-circle"></div>
+                    <span class="amount-text">💸 Rp10.000.000</span>
+                </div>
+            </label>
+
+            <label>
+                <input type="radio" name="prize" value="20jt">
+                <div class="option-item">
+                    <div class="radio-circle"></div>
+                    <span class="amount-text">💸 Rp20.000.000</span>
+                </div>
+            </label>
+
+            <label>
+                <input type="radio" name="prize" value="30jt">
+                <div class="option-item">
+                    <div class="radio-circle"></div>
+                    <span class="amount-text">💸 Rp30.000.000</span>
+                </div>
+            </label>
+
+            <button type="button" class="btn-confirm">Konfirmasi</button>
+        </form>
+
+        <div class="footer-info">
+            DANA Indonesia terdaftar dan diawasi oleh<br>
+            <strong>BANK INDONESIA | KOMINFO</strong>
+        </div>
     </div>
 
 </body>
-</html>
+    </html>
