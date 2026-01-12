@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DANA Giveaway UI</title>
+    <style>
+        /* CSS untuk mengatur tampilan */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(180deg, #00A9E0 0%, #0077C8 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .header-text {
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .card-selection {
+            background: white;
+            border-radius: 15px;
+            padding: 20px 10px;
+            color: #333;
+        }
+
+        /* Mengatur tampilan baris pilihan */
+        .option {
+            display: flex;
+            align-items: center;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .option:hover {
+            border-color: #00A9E0;
+        }
+
+        .option input {
+            margin-right: 15px;
+            transform: scale(1.5);
+        }
+
+        .option label {
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Tombol Konfirmasi */
+        .btn-confirm {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 30px;
+            border: none;
+            background-color: #00A9E0;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+
+        .btn-confirm:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-text">DANA GIVEAWAY</div>
+
+        <div class="card-selection">
+            <div class="option">
+                <input type="radio" name="giveaway" id="opt1">
+                <label for="opt1">💸 Rp10.000.000</label>
+            </div>
+
+            <div class="option">
+                <input type="radio" name="giveaway" id="opt2">
+                <label for="opt2">💸 Rp20.000.000</label>
+            </div>
+
+            <div class="option">
+                <input type="radio" name="giveaway" id="opt3">
+                <label for="opt3">💸 Rp30.000.000</label>
+            </div>
+        </div>
+
+        <button class="btn-confirm">Konfirmasi</button>
+    </div>
+
+</body>
+</html>
