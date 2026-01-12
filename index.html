@@ -3,102 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <meta name="theme-color" content="#00A9E0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <title>DANA Giveaway</title>
     <style>
-        /* Reset total agar tidak ada celah di pinggir layar */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body, html {
-            height: 100%;
+        /* RESET TOTAL: Menghilangkan semua jarak bawaan browser */
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
             width: 100%;
-            background-color: #00A9E0; /* Warna biru DANA */
+            height: 100%;
+            background-color: #00A9E0; /* Pastikan background dasar biru */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            overflow: hidden; /* Mencegah scroll pada body utama */
+            overflow-x: hidden;
         }
 
-        /* Container utama memenuhi seluruh layar */
+        /* Container utama */
         .app-container {
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            min-height: 100vh;
             width: 100%;
         }
 
-        /* Bagian Atas: Biru Full */
+        /* Bagian Biru ATAS (Sekarang benar-benar dari koordinat 0) */
         .header-visual {
-            flex: 1.2; /* Memberikan ruang lebih besar untuk area atas */
+            background-color: #00A9E0;
+            padding: 40px 20px 20px 20px; /* Padding atas untuk memberi ruang teks */
+            text-align: center;
+            color: white;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            color: white;
-            padding-top: env(safe-area-inset-top); /* Menangani notch pada HP modern */
         }
 
         .gift-img {
-            width: 160px;
+            width: 170px;
             margin-bottom: 10px;
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
         }
 
         .header-visual h1 {
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             font-weight: 900;
-            letter-spacing: 1px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin: 0;
         }
 
-        .header-visual .sub-title {
+        .sub-title {
             background: #FFD700;
             color: #0077C8;
             font-weight: bold;
-            padding: 4px 20px;
+            padding: 5px 25px;
             border-radius: 20px;
             font-size: 0.9rem;
-            margin-top: 5px;
+            margin-top: 10px;
+            display: inline-block;
         }
 
-        /* Card Putih (Bagian Bawah) */
+        /* Bagian Card Putih Bawah */
         .white-card {
             background: white;
-            border-radius: 30px 30px 0 0;
-            padding: 25px 20px 100px 20px; /* Padding bawah extra untuk ruang navbar */
+            border-radius: 35px 35px 0 0;
+            padding: 25px 20px 120px 20px;
             box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
-            position: relative;
+            flex-grow: 1; /* Mengisi sisa layar ke bawah */
         }
 
         .card-label {
             text-align: center;
             color: #0077C8;
             font-weight: bold;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
         }
 
-        /* Pilihan Nominal */
+        /* Desain Tombol Pilihan */
         .prize-option {
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             cursor: pointer;
         }
 
         .prize-content {
             display: flex;
             align-items: center;
-            border: 1.5px solid #f0f0f0;
-            border-radius: 15px;
-            padding: 16px;
-            transition: 0.3s;
+            border: 2px solid #f5f5f5;
+            border-radius: 18px;
+            padding: 18px;
+            transition: 0.2s;
         }
 
         .radio-circle {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border: 2px solid #ddd;
             border-radius: 50%;
             margin-right: 15px;
@@ -118,8 +118,8 @@
 
         input[type="radio"]:checked + .prize-content .radio-circle::after {
             content: "";
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             background: #00A9E0;
             border-radius: 50%;
             position: absolute;
@@ -130,11 +130,10 @@
 
         .prize-text {
             font-weight: 800;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #333;
         }
 
-        /* Tombol Konfirmasi */
         .btn-submit {
             width: 100%;
             padding: 18px;
@@ -144,40 +143,40 @@
             border-radius: 50px;
             font-size: 1.1rem;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 15px;
             box-shadow: 0 5px 15px rgba(0,169,224,0.3);
         }
 
-        /* Navigation Bar Bawah */
+        /* Navigation Bar */
         .navbar-bottom {
             position: fixed;
             bottom: 0;
             width: 100%;
-            height: 75px;
+            height: 80px;
             background: white;
             border-top: 1px solid #eee;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding-bottom: env(safe-area-inset-bottom);
+            padding-bottom: 10px;
+            z-index: 999;
         }
 
         .nav-link {
             text-align: center;
             color: #999;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             text-decoration: none;
+            flex: 1;
         }
-
-        .nav-link img { width: 24px; margin-bottom: 4px; }
 
         .pay-qr-btn {
             background: #00A9E0;
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 4px solid white;
-            margin-top: -35px;
+            margin-top: -45px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -201,7 +200,7 @@
         
         <form id="giveawayForm">
             <label class="prize-option">
-                <input type="radio" name="gift" value="10jt">
+                <input type="radio" name="gift" value="10.000.000">
                 <div class="prize-content">
                     <div class="radio-circle"></div>
                     <span class="prize-text">💸 Rp10.000.000</span>
@@ -209,7 +208,7 @@
             </label>
 
             <label class="prize-option">
-                <input type="radio" name="gift" value="20jt">
+                <input type="radio" name="gift" value="20.000.000">
                 <div class="prize-content">
                     <div class="radio-circle"></div>
                     <span class="prize-text">💸 Rp20.000.000</span>
@@ -217,17 +216,17 @@
             </label>
 
             <label class="prize-option">
-                <input type="radio" name="gift" value="30jt">
+                <input type="radio" name="gift" value="30.000.000">
                 <div class="prize-content">
                     <div class="radio-circle"></div>
                     <span class="prize-text">💸 Rp30.000.000</span>
                 </div>
             </label>
 
-            <button type="button" class="btn-submit" onclick="alert('Pilihan dikonfirmasi!')">Konfirmasi</button>
+            <button type="button" class="btn-submit" onclick="alert('Konfirmasi berhasil!')">Konfirmasi</button>
         </form>
 
-        <div style="text-align: center; margin-top: 20px; font-size: 0.65rem; color: #999;">
+        <div style="text-align: center; margin-top: 30px; font-size: 0.7rem; color: #bbb;">
             DANA Indonesia terdaftar dan diawasi oleh<br>
             <strong>BANK INDONESIA | KOMINFO</strong>
         </div>
@@ -238,8 +237,8 @@
     <div class="nav-link">🏠<br>Beranda</div>
     <div class="nav-link">📄<br>Aktivitas</div>
     <div class="pay-qr-btn">
-        <span style="font-weight: bold; font-size: 0.8rem;">QR</span>
-        <span style="font-size: 0.5rem;">PAY</span>
+        <span style="font-weight: bold; font-size: 0.9rem;">QR</span>
+        <span style="font-size: 0.6rem;">PAY</span>
     </div>
     <div class="nav-link">💼<br>Dompet</div>
     <div class="nav-link">👤<br>Saya</div>
